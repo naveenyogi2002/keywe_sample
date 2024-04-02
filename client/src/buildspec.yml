@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 21  # Specify the Node.js version
+      nodejs: 20  # Specify the Node.js version
 
   pre_build:
     commands:
