@@ -1,0 +1,29 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/naveenkumar/.nvm/versions/node/v6.14.4/bin/node',
+1 verbose cli   '/home/naveenkumar/.nvm/versions/node/v6.14.4/bin/npm',
+1 verbose cli   'init',
+1 verbose cli   '-y' ]
+2 info using npm@3.10.10
+3 info using node@v6.14.4
+4 silly package data undefined
+5 info init written successfully
+6 verbose stack Error: Invalid name: "keywe sample application"
+6 verbose stack     at ensureValidName (/home/naveenkumar/.nvm/versions/node/v6.14.4/lib/node_modules/npm/node_modules/normalize-package-data/lib/fixer.js:336:15)
+6 verbose stack     at Object.fixNameField (/home/naveenkumar/.nvm/versions/node/v6.14.4/lib/node_modules/npm/node_modules/normalize-package-data/lib/fixer.js:215:5)
+6 verbose stack     at /home/naveenkumar/.nvm/versions/node/v6.14.4/lib/node_modules/npm/node_modules/normalize-package-data/lib/normalize.js:32:38
+6 verbose stack     at Array.forEach (native)
+6 verbose stack     at normalize (/home/naveenkumar/.nvm/versions/node/v6.14.4/lib/node_modules/npm/node_modules/normalize-package-data/lib/normalize.js:31:15)
+6 verbose stack     at final (/home/naveenkumar/.nvm/versions/node/v6.14.4/lib/node_modules/npm/node_modules/read-package-json/read-json.js:349:5)
+6 verbose stack     at then (/home/naveenkumar/.nvm/versions/node/v6.14.4/lib/node_modules/npm/node_modules/read-package-json/read-json.js:124:5)
+6 verbose stack     at ReadFileContext.<anonymous> (/home/naveenkumar/.nvm/versions/node/v6.14.4/lib/node_modules/npm/node_modules/read-package-json/read-json.js:295:20)
+6 verbose stack     at ReadFileContext.callback (/home/naveenkumar/.nvm/versions/node/v6.14.4/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:78:16)
+6 verbose stack     at FSReqWrap.readFileAfterOpen [as oncomplete] (fs.js:367:13)
+7 verbose cwd /home/naveenkumar/Desktop/Projects/Key WE/keywe sample application
+8 error Linux 5.15.0-101-generic
+9 error argv "/home/naveenkumar/.nvm/versions/node/v6.14.4/bin/node" "/home/naveenkumar/.nvm/versions/node/v6.14.4/bin/npm" "init" "-y"
+10 error node v6.14.4
+11 error npm  v3.10.10
+12 error Invalid name: "keywe sample application"
+13 error If you need help, you may report this error at:
+13 error     <https://github.com/npm/npm/issues>
+14 verbose exit [ 1, true ]
