@@ -1,0 +1,18 @@
+{
+    "family": "keywe-pro-taskdef",
+    "containerDefinitions": [
+      {
+        "name": "keywe-pro-image",
+        "image": "904463569708.dkr.ecr.us-east-1.amazonaws.com/keywe-pro-repo:latest",
+        "portMappings": [
+          {
+            "containerPort": 80,
+            "hostPort": 80
+          }
+        ],
+        "cpu": 256,
+        "memory": 512
+      }
+    ]
+  }
+  
