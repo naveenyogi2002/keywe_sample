@@ -7,6 +7,8 @@ pipeline {
         SONAR_TOKEN = credentials('sqa_9ec4e218dc4be853326d391e6f30bcc5787acc6e')  // Update with your SonarQube access token credential ID
         PROJECT_KEY = 'poornish'
         PROJECT_NAME = 'poornish'
+        GITLAB_TOKEN = credentials('gitlab_token_id')  // Update with your GitLab access token credential ID
+        GITLAB_PROJECT_ID = 'your_gitlab_project_id'  // Replace with your GitLab project ID
     }
     
     stages {
@@ -31,7 +33,8 @@ pipeline {
                             -Dsonar.projectKey=${env.PROJECT_KEY} \
                             -Dsonar.projectName=${env.PROJECT_NAME} \
                             -Dsonar.host.url=${env.SONAR_HOST_URL} \
-                            -Dsonar.login=${env.SONAR_TOKEN}
+                            -Dsonar.login=${env.SONAR_TOKEN} \
+                            -Dsonar.gitlab.project_id=${env.GITLAB_PROJECT_ID}
                         """
                     }
                 }
