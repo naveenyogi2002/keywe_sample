@@ -1,42 +1,36 @@
 pipeline {
     agent any
-    
-    environment {
-        // Define the SonarQube Scanner tool installation name
-        scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+
+    tools {
+        // Define SonarQube Scanner tool
+        sonarqubeScanner 'SonarQube Scanner'
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
-                // Checkout code from your Git repository
-                git 'https://github.com/naveenyogi2002/keywe_sample.git'
+                // Add your SCM checkout steps here
+                checkout scm
             }
         }
-        stage('Build') {
+
+        // Add more stages as per your pipeline requirements
+
+        stage('SonarQube analysis') {
             steps {
-                // Example build step (replace with your actual build command)
-                sh 'echo "Building the project"'
-            }
-        }
-        stage('SonarQube Analysis') {
-            steps {
-                // Run SonarQube Scanner
-                script {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
+                withSonarQubeEnv('Your SonarQube server configuration') {
+                    sh '''\
+                    # Execute SonarQube Scanner commands here
+                    sonar-scanner
+                    '''
                 }
             }
         }
     }
-    
+
     post {
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
+        always {
+            // Add post-build actions as needed
         }
     }
 }
