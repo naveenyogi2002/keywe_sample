@@ -4,7 +4,7 @@ pipeline {
     environment {
         scannerHome = tool 'SonarQube Scanner'
         SONAR_HOST_URL = 'http://localhost:9000'  // Update with your SonarQube server URL
-        SONAR_TOKEN = credentials('sonarqube_token')  // Update with your SonarQube access token credential ID
+        SONAR_TOKEN = credentials('poornish2')  // Update with your SonarQube access token credential ID
         PROJECT_KEY = 'poornish'
         PROJECT_NAME = 'poornish'
     }
