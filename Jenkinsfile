@@ -4,7 +4,7 @@ pipeline {
     environment {
         scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
         SONAR_HOST_URL = 'http://localhost:9000'  // Update with your SonarQube server URL
-        SONAR_TOKEN = credentials('sonarqube_token')  // Update with your SonarQube access token credential ID
+        SONAR_TOKEN = credentials('gitlab')  // Update with your SonarQube access token credential ID
         PROJECT_KEY = 'poornish'
         PROJECT_NAME = 'poornish'
     }
