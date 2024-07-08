@@ -1,38 +1,17 @@
 pipeline {
     agent any
-    
-    environment {
-        scannerHome = tool 'SonarQube Scanner'
-        SONAR_HOST_URL = 'http://localhost:9000'
-        SONAR_TOKEN = credentials('gitlab')  // Ensure this credential ID exists in Jenkins Credentials
-        PROJECT_KEY = 'poornish'
-        PROJECT_NAME = 'poornish'
+
+    tools {
+        // Use the name defined in Jenkins Global Tool Configuration
+        sonarqubeScanner 'SonarQubeScanner'
     }
-    
+
     stages {
-        stage('Checkout') {
+        stage('SonarQube analysis') {
             steps {
-                script {
-                    def gitTool = tool name: 'Default', type: 'hudson.plugins.git.GitTool'
-                    env.PATH = "${gitTool}/bin:${env.PATH}"
-                    git 'https://github.com/naveenyogi2002/keywe_sample.git'
-                }
-            }
-        }
-        
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    withSonarQubeEnv('SonarQube') {
-                        sh """
-                            ${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=${env.PROJECT_KEY} \
-                            -Dsonar.projectName=${env.PROJECT_NAME} \
-                            -Dsonar.host.url=${env.SONAR_HOST_URL} \
-                            -Dsonar.login=${env.SONAR_TOKEN}
-                        """
-                    }
+                withSonarQubeEnv('SonarQubeServer') {
+                    // Execute SonarQube Scanner
+                    sh 'sonar-scanner'
                 }
             }
         }
