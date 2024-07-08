@@ -3,16 +3,16 @@ pipeline {
     
     environment {
         scannerHome = tool 'SonarQube Scanner'
-        SONAR_HOST_URL = 'http://your-sonarqube-server-url'
-        SONAR_TOKEN = credentials('your-sonarqube-token-id')
-        PROJECT_KEY = 'your-project-key'
-        PROJECT_NAME = 'Your Project Name'
+        SONAR_HOST_URL = 'http://localhost:9000'
+        SONAR_TOKEN = credentials('admin')
+        PROJECT_KEY = 'poornish'
+        PROJECT_NAME = 'poornish'
     }
     
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your/repository.git'
+                git 'https://github.com/naveenyogi2002/keywe_sample.git'
             }
         }
         
@@ -26,7 +26,7 @@ pipeline {
                             -Dsonar.projectKey=${env.PROJECT_KEY} \
                             -Dsonar.projectName=${env.PROJECT_NAME} \
                             -Dsonar.host.url=${env.SONAR_HOST_URL} \
-                            -Dsonar.login=${env.SONAR_TOKEN}
+                            -Dsonar.token=sqp_c8e9b3f0929a51f1a312e676bf1a08b3debf70f9
                         """
                     }
                 }
