@@ -4,7 +4,7 @@ pipeline {
     environment {
         scannerHome = tool 'SonarQube Scanner'
         SONAR_HOST_URL = 'http://localhost:9000'
-        SONAR_TOKEN = credentials('admin')
+        SONAR_TOKEN = credentials('gitlab')
         PROJECT_KEY = 'poornish'
         PROJECT_NAME = 'poornish'
     }
