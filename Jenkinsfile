@@ -2,9 +2,9 @@ pipeline {
     agent any
     
     environment {
-        scannerHome = tool 'SonarQube Scanner'
-        SONAR_HOST_URL = 'http://localhost:9000'
-        SONAR_TOKEN = credentials('gitlab')
+        scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        SONAR_HOST_URL = 'http://localhost:9000'  // Update with your SonarQube server URL
+        SONAR_TOKEN = credentials('sonarqube_token')  // Update with your SonarQube access token credential ID
         PROJECT_KEY = 'poornish'
         PROJECT_NAME = 'poornish'
     }
@@ -19,15 +19,12 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     withSonarQubeEnv('SonarQube') {
-                        sh """
-                            ${scannerHome}/bin/sonar-scanner \
+                        sh "${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=${env.PROJECT_KEY} \
                             -Dsonar.projectName=${env.PROJECT_NAME} \
                             -Dsonar.host.url=${env.SONAR_HOST_URL} \
-                            -Dsonar.token=sqp_c8e9b3f0929a51f1a312e676bf1a08b3debf70f9
-                        """
+                            -Dsonar.login=${env.SONAR_TOKEN}"
                     }
                 }
             }
