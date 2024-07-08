@@ -4,7 +4,7 @@ pipeline {
     environment {
         scannerHome = tool 'SonarQube Scanner'  // Ensure this matches the name configured in Jenkins Global Tool Configuration
         SONAR_HOST_URL = 'http://localhost:9000'  // Update with your SonarQube server URL
-        SONAR_TOKEN = credentials('sonarqube_token_id')  // Update with your SonarQube access token credential ID
+        SONAR_TOKEN = credentials('sqa_eb079b1f5c498d3ccdf7856f62d2c13991e43949')  // Update with your SonarQube access token credential ID
         PROJECT_KEY = 'poornish'
         PROJECT_NAME = 'poornish'
     }
