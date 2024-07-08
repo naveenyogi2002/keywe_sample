@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        scannerHome = tool name: 'sonarqube-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
         SONAR_HOST_URL = 'http://localhost:9000'  // Update with your SonarQube server URL
         SONAR_TOKEN = credentials('gitlab')  // Update with your SonarQube access token credential ID
         PROJECT_KEY = 'poornish'
