@@ -10,9 +10,10 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 script {
-                    // Assuming sonar-scanner is now in PATH
+                    // Adjust the path to sonar-scanner as per your installation
+                    def scannerHome = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     withSonarQubeEnv('SonarQube Community Edition v10.5.1') {
-                        sh 'sonar-scanner'
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }
