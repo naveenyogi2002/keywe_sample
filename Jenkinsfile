@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    
     stages {
         stage('Fetch Code') {
             steps {
@@ -10,13 +10,13 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 script {
-                    // Adjust the path to sonar-scanner as per your installation
-                    def scannerHome = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     withSonarQubeEnv('SonarQube Community Edition v10.5.1') {
-                        sh "${scannerHome}/bin/sonar-scanner"
+                        // Run SonarQube analysis
+                        sh 'sonar-scanner'
                     }
                 }
             }
         }
     }
 }
+
