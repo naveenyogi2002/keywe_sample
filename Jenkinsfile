@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
     
@@ -10,12 +9,11 @@ pipeline {
         }
         stage('Code Analysis') {
             environment {
-                scannerHome = tool 'SonarQube Scanner for Jenkins
-Version2.17.2'
+                scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
             }
             steps {
                 script {
-                    withSonarQubeEnv('Sonar') {
+                    withSonarQubeEnv('SonarQube') { // Use the correct SonarQube server name configured in Jenkins
                         sh "${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=poornishnagappan \
                             -Dsonar.projectName=poornish"
@@ -25,3 +23,6 @@ Version2.17.2'
         }
     }
 }
+
+
+
