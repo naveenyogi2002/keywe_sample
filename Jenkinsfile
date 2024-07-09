@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', url: "${https://github.com/naveenyogi2002/keywe_sample.git}"
+                git branch: 'main', url: "${GIT_REPO_URL}"
             }
         }
 
@@ -48,7 +48,3 @@ pipeline {
         }
     }
 }
-
-
-
-
