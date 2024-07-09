@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Fetch Code') {
             steps {
@@ -10,8 +10,8 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 script {
+                    // Assuming sonar-scanner is now in PATH
                     withSonarQubeEnv('SonarQube Community Edition v10.5.1') {
-                        // Run SonarQube analysis
                         sh 'sonar-scanner'
                     }
                 }
