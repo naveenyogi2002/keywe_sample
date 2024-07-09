@@ -2,42 +2,23 @@ pipeline {
     agent any
     
     stages {
-        stage('Fetch Code') {
-            steps {
-                git 'https://github.com/naveenyogi2002/keywe_sample.git'
-            }
-        }
-        
-        stage('Code Analysis') {
+        stage('Example Stage') {
             steps {
                 script {
-                    def scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    
-                    withSonarQubeEnv('SonarQube Community Edition v10.5.1') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
+                    echo 'Running some script...'
+                    // Add your script commands here
+                    sh 'echo Hello World'
                 }
             }
         }
     }
     
     post {
-        always {
-            script {
-                // Cleanup tasks if any
-            }
-        }
-        
         success {
-            script {
-                // Actions to perform on success
-            }
+            echo 'Pipeline successfully completed!'
         }
-        
         failure {
-            script {
-                // Actions to perform on failure
-            }
+            echo 'Pipeline failed!'
         }
     }
 }
