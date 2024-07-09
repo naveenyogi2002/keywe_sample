@@ -1,28 +1,42 @@
 pipeline {
     agent any
 
-    tools {
-        // Define SonarQube Scanner tool
-        sonarqubeScanner 'SonarQube Scanner'
+    environment {
+        // Set your SonarQube server name as configured in Jenkins
+        SONARQUBE_SERVER = 'scanner-name'
+        // Set the project key as per your SonarQube configuration
+        SONAR_PROJECT_KEY = 'poornishnagappan'
+        // Set the GitHub repository URL
+        GIT_REPO_URL = 'https://github.com/naveenyogi2002/keywe_sample.git'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Add your SCM checkout steps here
-                checkout scm
+                git branch: 'master', url: "${https://github.com/naveenyogi2002/keywe_sample.git}"
             }
         }
 
-        // Add more stages as per your pipeline requirements
-
-        stage('SonarQube analysis') {
+        stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('Your SonarQube server configuration') {
-                    sh '''\
-                    # Execute SonarQube Scanner commands here
-                    sonar-scanner
-                    '''
+                script {
+                    def scannerHome = tool 'SonarQube Scanner'
+                    withSonarQubeEnv("${SONARQUBE_SERVER}") {
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.sources=."
+                    }
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                script {
+                    timeout(time: 1, unit: 'HOURS') {
+                        def qualityGate = waitForQualityGate()
+                        if (qualityGate.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
+                        }
+                    }
                 }
             }
         }
@@ -30,7 +44,11 @@ pipeline {
 
     post {
         always {
-            // Add post-build actions as needed
+            cleanWs()
         }
     }
 }
+
+
+
+
