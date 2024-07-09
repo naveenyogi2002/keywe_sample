@@ -1,50 +1,49 @@
 pipeline {
     agent any
 
-    environment {
-        // Set your SonarQube server name as configured in Jenkins
-        SONARQUBE_SERVER = 'scanner-name'
-        // Set the project key as per your SonarQube configuration
-        SONAR_PROJECT_KEY = 'poornishnagappan'
-        // Set the GitHub repository URL
-        GIT_REPO_URL = 'https://github.com/naveenyogi2002/keywe_sample.git'
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: "${GIT_REPO_URL}"
+                git url: 'https://github.com/naveenyogi2002/keywe_sample.git'
             }
         }
-
-        stage('SonarQube Analysis') {
+        
+        stage('Build') {
             steps {
-                script {
-                    def scannerHome = tool 'SonarQube Scanner'
-                    withSonarQubeEnv("${SONARQUBE_SERVER}") {
-                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.sources=."
-                    }
+                // Replace with your build command
+                echo 'Building...'
+                // sh 'your-build-command'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                // Replace with your test command
+                echo 'Running tests...'
+                // sh 'your-test-command'
+            }
+        }
+        
+        stage('SonarQube Analysis') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
-
+        
         stage('Quality Gate') {
             steps {
                 script {
-                    timeout(time: 1, unit: 'HOURS') {
-                        def qualityGate = waitForQualityGate()
-                        if (qualityGate.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
-                        }
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
                     }
                 }
             }
-        }
-    }
-
-    post {
-        always {
-            cleanWs()
         }
     }
 }
