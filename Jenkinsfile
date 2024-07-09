@@ -2,16 +2,6 @@ pipeline {
     agent any
     
     stages {
-        stage('Example Stage') {
-            steps {
-                script {
-                    echo 'Running some script...'
-                    // Add your script commands here
-                    sh 'echo Hello World'
-                }
-            }
-        }
-        
         stage('Fetch Code') {
             steps {
                 git 'https://github.com/naveenyogi2002/keywe_sample.git'
@@ -40,14 +30,12 @@ pipeline {
         
         success {
             script {
-                echo 'Pipeline successfully completed!'
                 // Actions to perform on success
             }
         }
         
         failure {
             script {
-                echo 'Pipeline failed!'
                 // Actions to perform on failure
             }
         }
