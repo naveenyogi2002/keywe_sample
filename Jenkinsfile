@@ -11,12 +11,17 @@ pipeline {
                 git 'https://github.com/naveenyogi2002/keywe_sample.git'
             }
         }
+
         stage('Code Analysis') {
             steps {
+                // Set up SonarQube environment and scan the project
                 withSonarQubeEnv('SonarQube Community Edition v10.5.1') {
                     withEnv(["PATH+SONAR=${scannerHome}/bin"]) {
-                        sh 'echo $PATH'  // Debugging step to check PATH
-                        sh 'which sonar-scanner'  // Debugging step to locate sonar-scanner
+                        // Debugging steps to verify sonar-scanner setup
+                        sh 'echo $PATH'           // Output current PATH
+                        sh 'which sonar-scanner'  // Check if sonar-scanner is available
+
+                        // Running sonar-scanner with required parameters
                         sh '''
                         sonar-scanner \
                         -Dsonar.projectKey=poornishnagappan \
@@ -28,4 +33,4 @@ pipeline {
             }
         }
     }
-
+}
